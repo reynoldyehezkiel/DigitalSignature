@@ -65,7 +65,7 @@ public class DocumentRecycleViewAdapter extends RecyclerView.Adapter<RecyclerVie
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder vh;
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.mainitemgrid, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_document, parent, false);
         vh = new OriginalViewHolder(v);
         return vh;
     }

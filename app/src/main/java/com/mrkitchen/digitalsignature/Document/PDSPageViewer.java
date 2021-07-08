@@ -22,7 +22,6 @@ import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.OverScroller;
@@ -635,7 +634,7 @@ public class PDSPageViewer extends FrameLayout implements Observer {
         hideElementCreationMenu();
         fASElementViewer.showBorder();
         this.mLastFocusedElementViewer = fASElementViewer;
-        View inflate = this.mInflater.inflate(R.layout.element_prop_menu_layout, null, false);
+        View inflate = this.mInflater.inflate(R.layout.delete_signature_layout, null, false);
         inflate.setTag(fASElementViewer);
         this.mScrollView.addView(inflate);
         this.mElementPropMenu = inflate;

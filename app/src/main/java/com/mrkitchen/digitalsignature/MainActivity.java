@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity
                     selectedFile = null;
                     if (mBottomSheetDialog != null)
                         mBottomSheetDialog.dismiss();
-                    Toast toast = Toast.makeText(this, "Copy files to: " + documentFile.getName(), Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(this, "Download file to: " + documentFile.getName(), Toast.LENGTH_LONG);
                     toast.show();
                 }
             }
@@ -347,7 +347,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        (view.findViewById(R.id.lyt_copyTo)).setOnClickListener(new View.OnClickListener() {
+        (view.findViewById(R.id.lyt_download)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
@@ -391,7 +391,7 @@ public class MainActivity extends AppCompatActivity
     public void showCustomRenameDialog(final File currentFile) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
-        View view = inflater.inflate(R.layout.rename_layout, null);
+        View view = inflater.inflate(R.layout.rename_document_layout, null);
         builder.setView(view);
         final EditText editText = view.findViewById(R.id.renameEditText2);
         editText.setText(currentFile.getName());

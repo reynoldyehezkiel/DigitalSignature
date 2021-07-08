@@ -81,7 +81,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/lyt_copyTo"
+        android:id="@+id/lyt_download"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"

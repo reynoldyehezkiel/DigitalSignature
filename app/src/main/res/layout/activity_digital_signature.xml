@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center|right|top"
             android:layout_marginTop="@dimen/pagenumber_overlay_margin_top"
-            android:background="@drawable/pagenumber_indicator_theme"
+            android:background="@drawable/th_page_number_indicator"
             android:orientation="vertical">
 
             <TextView

@@ -95,7 +95,7 @@ public class PDFViewerActivity extends AppCompatActivity {
             if (imageUris != null) {
                 for (int i = 0; i < imageUris.size(); i++) {
                     Uri imageUri = imageUris.get(i);
-                    OpenPDFViewer((imageUri));
+                    openPDFViewer((imageUri));
                 }
             }
         }
@@ -107,7 +107,7 @@ public class PDFViewerActivity extends AppCompatActivity {
             if (resultCode == Activity.RESULT_OK) {
                 if (result != null) {
                     pdfData = result.getData();
-                    OpenPDFViewer(pdfData);
+                    openPDFViewer(pdfData);
                 }
             } else {
                 finish();
@@ -166,7 +166,7 @@ public class PDFViewerActivity extends AppCompatActivity {
         if (id == R.id.action_sign) {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
             LayoutInflater inflater = this.getLayoutInflater();
-            View dialogView = inflater.inflate(R.layout.optiondialog, null);
+            View dialogView = inflater.inflate(R.layout.signature_option_dialog, null);
             dialogBuilder.setView(dialogView);
 
             Button signature = dialogView.findViewById(R.id.fromCollection);
@@ -230,13 +230,18 @@ public class PDFViewerActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             finish();
                         }
-                    }).show();
+                    }).setNeutralButton("Cancel",new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    })
+                    .show();
         } else {
             finish();
         }
     }
 
-    private void OpenPDFViewer(Uri pdfData) {
+    private void openPDFViewer(Uri pdfData) {
         try {
             PDSPDFDocument document = new PDSPDFDocument(this, pdfData);
             document.open();
@@ -277,7 +282,7 @@ public class PDFViewerActivity extends AppCompatActivity {
     public void GetPassword() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.passworddialog, null);
+        View dialogView = inflater.inflate(R.layout.password_dialog, null);
         dialogBuilder.setView(dialogView);
 
         final EditText password = dialogView.findViewById(R.id.passwordText);
@@ -319,13 +324,14 @@ public class PDFViewerActivity extends AppCompatActivity {
         MenuItem saveItem = mMenu.findItem(R.id.action_save);
         saveItem.setEnabled(disableButtonFlag);
         MenuItem signPDF = mMenu.findItem(R.id.action_sign);
-        //signPDF.setEnabled(!disableButtonFlag);
+        signPDF.setEnabled(!disableButtonFlag);
         isSigned = disableButtonFlag;
         if (disableButtonFlag) {
             saveItem.getIcon().setAlpha(255);
+            signPDF.getIcon().setAlpha(130);
         } else {
             saveItem.getIcon().setAlpha(130);
-
+            signPDF.getIcon().setAlpha(255);
         }
     }
 
@@ -341,27 +347,27 @@ public class PDFViewerActivity extends AppCompatActivity {
 
                 fASPageViewer.createElement(fASElementType, file, width, height, f, f2);
 
-                if (!isSigned) {
-                    AlertDialog dialog;
-                    AlertDialog.Builder builder = new AlertDialog.Builder(PDFViewerActivity.this);
-                    builder.setMessage("Do you want to add digital certificate with this Signature?")
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-                                    intent.setType("application/keychain_access");
-                                    String[] mimetypes = {"application/x-pkcs12"};
-                                    intent.putExtra(Intent.EXTRA_MIME_TYPES, mimetypes);
-                                    startActivityForResult(intent, DIGITAL_ID_REQUEST_CODE);
-                                }
-                            })
-                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.dismiss();
-                                }
-                            });
-                    dialog = builder.create();
-                    dialog.show();
-                }
+//                if (!isSigned) {
+//                    AlertDialog dialog;
+//                    AlertDialog.Builder builder = new AlertDialog.Builder(PDFViewerActivity.this);
+//                    builder.setMessage("Do you want to add digital certificate with this Signature?")
+//                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int id) {
+//                                    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+//                                    intent.setType("application/keychain_access");
+//                                    String[] mimetypes = {"application/x-pkcs12"};
+//                                    intent.putExtra(Intent.EXTRA_MIME_TYPES, mimetypes);
+//                                    startActivityForResult(intent, DIGITAL_ID_REQUEST_CODE);
+//                                }
+//                            })
+//                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int id) {
+//                                    dialog.dismiss();
+//                                }
+//                            });
+//                    dialog = builder.create();
+//                    dialog.show();
+//                }
             }
             invokeMenuButton(true);
         }
