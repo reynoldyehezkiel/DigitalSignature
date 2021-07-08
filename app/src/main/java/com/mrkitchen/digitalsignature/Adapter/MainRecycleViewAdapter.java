@@ -100,7 +100,7 @@ public class MainRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 }
             });
             toggleCheckedIcon(holder, position);
-            view.image.setImageResource(R.drawable.ic_adobe);
+            view.image.setImageResource(R.drawable.ic_pdf);
         }
     }
 

@@ -18,7 +18,7 @@
             android:layout_width="?attr/actionBarSize"
             android:layout_height="?attr/actionBarSize"
             android:padding="@dimen/spacing_large"
-            android:src="@drawable/ic_insert_drive_file_black_24dp"
+            android:src="@drawable/ic_tool_open_file"
             android:tint="@color/grey_10" />
 
         <TextView
@@ -43,13 +43,13 @@
             android:layout_width="?attr/actionBarSize"
             android:layout_height="?attr/actionBarSize"
             android:padding="@dimen/spacing_large"
-            android:src="@drawable/ic_menu_send"
+            android:src="@drawable/ic_tool_send"
             android:tint="@color/grey_10" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Email"
+            android:text="Send via Email"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/grey_90" />
 
@@ -67,14 +67,14 @@
             android:layout_width="?attr/actionBarSize"
             android:layout_height="?attr/actionBarSize"
             android:padding="@dimen/spacing_large"
-            android:src="@drawable/ic_menu_share"
+            android:src="@drawable/ic_tool_share"
             android:tint="@color/grey_10" />
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Share a Copy"
+            android:text="Share"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/grey_90" />
 
@@ -92,14 +92,14 @@
             android:layout_width="?attr/actionBarSize"
             android:layout_height="?attr/actionBarSize"
             android:padding="@dimen/spacing_large"
-            android:src="@drawable/ic_content_copy_black_24dp"
+            android:src="@drawable/ic_tool_download"
             android:tint="@color/grey_10" />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Copy To"
+            android:text="Download"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/grey_90" />
 
@@ -117,7 +117,7 @@
             android:layout_width="?attr/actionBarSize"
             android:layout_height="?attr/actionBarSize"
             android:padding="@dimen/spacing_large"
-            android:src="@drawable/ic_signpdf"
+            android:src="@drawable/ic_tool_rename"
             android:tint="@color/grey_10" />
 
         <TextView
@@ -141,7 +141,7 @@
             android:layout_width="?attr/actionBarSize"
             android:layout_height="?attr/actionBarSize"
             android:padding="@dimen/spacing_large"
-            android:src="@drawable/ic_delete_black_24dp"
+            android:src="@drawable/ic_tool_delete"
             android:tint="@color/grey_10" />
 
         <TextView

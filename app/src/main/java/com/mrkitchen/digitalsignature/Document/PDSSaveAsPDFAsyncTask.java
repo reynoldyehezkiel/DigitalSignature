@@ -8,7 +8,7 @@ import android.os.Looper;
 import android.view.View;
 import android.widget.Toast;
 
-import com.mrkitchen.digitalsignature.DigitalSignatureActivity;
+import com.mrkitchen.digitalsignature.PDFViewerActivity;
 import com.mrkitchen.digitalsignature.PDF.PDSPDFDocument;
 import com.mrkitchen.digitalsignature.PDF.PDSPDFPage;
 import com.mrkitchen.digitalsignature.PDSModel.PDSElement;
@@ -37,10 +37,10 @@ import java.security.cert.Certificate;
 public class PDSSaveAsPDFAsyncTask extends AsyncTask<Void, Void, Boolean> {
 
     private String mfileName;
-    DigitalSignatureActivity mCtx;
+    PDFViewerActivity mCtx;
 
 
-    public PDSSaveAsPDFAsyncTask(DigitalSignatureActivity context, String str) {
+    public PDSSaveAsPDFAsyncTask(PDFViewerActivity context, String str) {
         this.mCtx = context;
         this.mfileName = str;
     }

@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.mrkitchen.digitalsignature.DigitalSignatureActivity;
+import com.mrkitchen.digitalsignature.PDFViewerActivity;
 import com.mrkitchen.digitalsignature.R;
 
 public class PDSFragment extends Fragment {
@@ -26,7 +26,7 @@ public class PDSFragment extends Fragment {
         View inflate = layoutInflater.inflate(R.layout.fragment_layout, viewGroup, false);
         LinearLayout linearLayout = (LinearLayout) inflate.findViewById(R.id.fragment);
         try {
-            PDSPageViewer fASPageViewer = new PDSPageViewer(viewGroup.getContext(),(DigitalSignatureActivity) getActivity(),((DigitalSignatureActivity) getActivity()).getDocument().getPage(getArguments().getInt("pageNum")));
+            PDSPageViewer fASPageViewer = new PDSPageViewer(viewGroup.getContext(),(PDFViewerActivity) getActivity(),((PDFViewerActivity) getActivity()).getDocument().getPage(getArguments().getInt("pageNum")));
             this.mPageViewer = fASPageViewer;
             linearLayout.addView(fASPageViewer);
         } catch (Exception e) {

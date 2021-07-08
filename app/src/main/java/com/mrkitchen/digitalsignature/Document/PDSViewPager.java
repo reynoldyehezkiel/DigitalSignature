@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
 
-import com.mrkitchen.digitalsignature.DigitalSignatureActivity;
+import com.mrkitchen.digitalsignature.PDFViewerActivity;
 
 import fr.castorflex.android.verticalviewpager.VerticalViewPager;
 
@@ -45,7 +45,7 @@ public class PDSViewPager extends VerticalViewPager {
                     }
                 }
                 if (PDSViewPager.this.mActivityContext != null) {
-                    ((DigitalSignatureActivity) PDSViewPager.this.mActivityContext).updatePageNumber(i + 1);
+                    ((PDFViewerActivity) PDSViewPager.this.mActivityContext).updatePageNumber(i + 1);
                 }
             }
         });

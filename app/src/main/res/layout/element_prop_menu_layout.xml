@@ -14,6 +14,6 @@
         android:layout_width="@dimen/ctx_menu_item_width"
         android:layout_height="@dimen/ctx_menu_height"
         android:background="@color/colorAccent"
-        android:src="@drawable/ic_delete_black_24dp" />
+        android:src="@drawable/ic_tool_delete" />
 
 </androidx.cardview.widget.CardView>

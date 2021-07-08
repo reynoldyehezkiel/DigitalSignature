@@ -20,5 +20,5 @@
     android:tint="@color/delete"
     android:background="@android:color/transparent"
     android:id="@+id/deleteSignature"
-    android:src="@drawable/ic_delete_black_24dp"/>
+    android:src="@drawable/ic_tool_delete"/>
 </FrameLayout>

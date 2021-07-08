@@ -24,7 +24,7 @@
             android:layout_height="45dp"
             android:layout_marginLeft="16dp"
             android:gravity="center"
-            android:src="@drawable/ic_adobe" />
+            android:src="@drawable/ic_pdf" />
 
 
         <RelativeLayout

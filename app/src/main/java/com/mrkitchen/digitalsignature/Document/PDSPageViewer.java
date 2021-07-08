@@ -30,7 +30,7 @@ import android.widget.RelativeLayout;
 import android.view.ScaleGestureDetector.SimpleOnScaleGestureListener;
 import android.util.SizeF;
 
-import com.mrkitchen.digitalsignature.DigitalSignatureActivity;
+import com.mrkitchen.digitalsignature.PDFViewerActivity;
 import com.mrkitchen.digitalsignature.PDF.PDSPDFPage;
 import com.mrkitchen.digitalsignature.PDSModel.PDSElement;
 import com.mrkitchen.digitalsignature.R;
@@ -89,9 +89,9 @@ public class PDSPageViewer extends FrameLayout implements Observer {
     private float mTouchX = 0.0f;
     private float mTouchY = 0.0f;
     private ImageView mDragShadowView = null;
-    DigitalSignatureActivity activity = null;
+    PDFViewerActivity activity = null;
 
-    public PDSPageViewer(Context context, DigitalSignatureActivity activity, PDSPDFPage pdfPage) {
+    public PDSPageViewer(Context context, PDFViewerActivity activity, PDSPDFPage pdfPage) {
         super(context);
         this.mContext = context;
         this.activity = activity;
@@ -290,8 +290,6 @@ public class PDSPageViewer extends FrameLayout implements Observer {
         }
         if (this.mElementPropMenu != null) {
             showElementPropMenu(this.mLastFocusedElementViewer);
-        } else if (this.mElementCreationMenu != null) {
-            //  showElementCreationMenu(this.mLastFocusedElementViewer);
         }
     }
 
@@ -347,8 +345,6 @@ public class PDSPageViewer extends FrameLayout implements Observer {
     }
 
     private void onTap(MotionEvent motionEvent, boolean z) {
-        manualScale(motionEvent.getX(), motionEvent.getY());
-        //getDocumentViewer().hideTrainingViewIfVisible();
         float x = (motionEvent.getX() + ((float) this.mScrollView.getScrollX())) / this.mScaleFactor;
         float y = (motionEvent.getY() + ((float) this.mScrollView.getScrollY())) / this.mScaleFactor;
         if (!getImageContentRect().contains(new RectF(x, y, (getResources().getDimension(R.dimen.element_min_width) + x) + (getResources().getDimension(R.dimen.element_horizontal_padding) * 2.0f), (getResources().getDimension(R.dimen.element_min_width) + y) + (getResources().getDimension(R.dimen.element_vertical_padding) * 2.0f)))) {
@@ -383,19 +379,8 @@ public class PDSPageViewer extends FrameLayout implements Observer {
         }
     }
 
-    public void manualScale(float f, float f2) {
-        if (this.mScaleFactor == 1.0f && getDocumentViewer().isFirstTap()) {
-            getDocumentViewer().setFirstTap(false);
-            scaleBegin(f, f2);
-            scale(1.15f);
-            scale(1.3f);
-            scale(1.45f);
-            scaleEnd();
-        }
-    }
-
-    public DigitalSignatureActivity getDocumentViewer() {
-        return (DigitalSignatureActivity) this.mContext;
+    public PDFViewerActivity getDocumentViewer() {
+        return (PDFViewerActivity) this.mContext;
     }
 
     private int getMaxScrollX() {

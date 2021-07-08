@@ -18,8 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,7 +33,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mrkitchen.digitalsignature.Document.PDSElementViewer;
 import com.mrkitchen.digitalsignature.Document.PDSPageViewer;
 import com.mrkitchen.digitalsignature.Document.PDSSaveAsPDFAsyncTask;
 import com.mrkitchen.digitalsignature.Document.PDSViewPager;
@@ -56,7 +53,7 @@ import java.security.Security;
 import java.util.ArrayList;
 
 
-public class DigitalSignatureActivity extends AppCompatActivity {
+public class PDFViewerActivity extends AppCompatActivity {
     private static final int READ_REQUEST_CODE = 42;
     private static final int SIGNATURE_Request_CODE = 43;
     private static final int IMAGE_REQUEST_CODE = 45;
@@ -65,7 +62,6 @@ public class DigitalSignatureActivity extends AppCompatActivity {
     private PDSViewPager mViewPager;
     PDSPageAdapter imageAdapter;
     private Context mContext = null;
-    private RecyclerView mRecyclerView;
     private boolean mFirstTap = true;
     private int mVisibleWindowHt = 0;
     private PDSPDFDocument mDocument = null;
@@ -130,7 +126,7 @@ public class DigitalSignatureActivity extends AppCompatActivity {
                     GetPassword();
                 }
             } else {
-                Toast.makeText(DigitalSignatureActivity.this, "Digital certificate is not added with Signature", Toast.LENGTH_LONG).show();
+                Toast.makeText(PDFViewerActivity.this, "Digital certificate is not added with Signature", Toast.LENGTH_LONG).show();
             }
         }
 
@@ -154,7 +150,7 @@ public class DigitalSignatureActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.document_menu, menu);
         this.mmenu = menu;
         MenuItem saveItem = mmenu.findItem(R.id.action_save);
         saveItem.getIcon().setAlpha(130);
@@ -250,7 +246,7 @@ public class DigitalSignatureActivity extends AppCompatActivity {
             mViewPager.setAdapter(imageAdapter);
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(DigitalSignatureActivity.this, "Cannot open PDF, either PDF is corrupted or password protected", Toast.LENGTH_LONG).show();
+            Toast.makeText(PDFViewerActivity.this, "Cannot open PDF, either PDF is corrupted or password protected", Toast.LENGTH_LONG).show();
             finish();
         }
     }
@@ -265,15 +261,6 @@ public class DigitalSignatureActivity extends AppCompatActivity {
 
     private int computeVisibleWindowHtForNonFullScreenMode() {
         return findViewById(R.id.docviewer).getHeight();
-    }
-
-
-    public boolean isFirstTap() {
-        return this.mFirstTap;
-    }
-
-    public void setFirstTap(boolean z) {
-        this.mFirstTap = z;
     }
 
     public int getVisibleWindowHeight() {
@@ -299,7 +286,7 @@ public class DigitalSignatureActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (password.length() == 0) {
-                    Toast.makeText(DigitalSignatureActivity.this, "Password can't be blank", Toast.LENGTH_LONG).show();
+                    Toast.makeText(PDFViewerActivity.this, "Password can't be blank", Toast.LENGTH_LONG).show();
                 } else {
                     mdigitalIDPassword = password.getText().toString();
                     BouncyCastleProvider provider = new BouncyCastleProvider();
@@ -310,12 +297,12 @@ public class DigitalSignatureActivity extends AppCompatActivity {
                         keyStore.load(inputStream, mdigitalIDPassword.toCharArray());
                         alises = keyStore.aliases().nextElement();
                         passwordalertDialog.dismiss();
-                        Toast.makeText(DigitalSignatureActivity.this, "Digital certificate is added with Signature", Toast.LENGTH_LONG).show();
+                        Toast.makeText(PDFViewerActivity.this, "Digital certificate is added with Signature", Toast.LENGTH_LONG).show();
                     } catch (Exception e) {
                         if (e.getMessage().contains("wrong password")) {
-                            Toast.makeText(DigitalSignatureActivity.this, "Password is incorrect or certificate is corrupted", Toast.LENGTH_LONG).show();
+                            Toast.makeText(PDFViewerActivity.this, "Password is incorrect or certificate is corrupted", Toast.LENGTH_LONG).show();
                         } else {
-                            Toast.makeText(DigitalSignatureActivity.this, "Something went wrong while adding Digital certificate", Toast.LENGTH_LONG).show();
+                            Toast.makeText(PDFViewerActivity.this, "Something went wrong while adding Digital certificate", Toast.LENGTH_LONG).show();
                             passwordalertDialog.dismiss();
                         }
                         e.printStackTrace();
@@ -335,10 +322,8 @@ public class DigitalSignatureActivity extends AppCompatActivity {
         //signPDF.setEnabled(!disableButtonFlag);
         isSigned = disableButtonFlag;
         if (disableButtonFlag) {
-            //signPDF.getIcon().setAlpha(130);
             saveItem.getIcon().setAlpha(255);
         } else {
-            //signPDF.getIcon().setAlpha(255);
             saveItem.getIcon().setAlpha(130);
 
         }
@@ -352,14 +337,13 @@ public class DigitalSignatureActivity extends AppCompatActivity {
                 RectF visibleRect = fASPageViewer.getVisibleRect();
                 float width = (visibleRect.left + (visibleRect.width() / 2.0f)) - (f / 2.0f);
                 float height = (visibleRect.top + (visibleRect.height() / 2.0f)) - (f2 / 2.0f);
-                PDSElementViewer lastFocusedElementViewer = fASPageViewer.getLastFocusedElementViewer();
+                fASPageViewer.getLastFocusedElementViewer();
 
-                PDSElement.PDSElementType fASElementType2 = fASElementType;
-                final PDSElement element = fASPageViewer.createElement(fASElementType2, file, width, height, f, f2);
+                fASPageViewer.createElement(fASElementType, file, width, height, f, f2);
 
                 if (!isSigned) {
                     AlertDialog dialog;
-                    AlertDialog.Builder builder = new AlertDialog.Builder(DigitalSignatureActivity.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(PDFViewerActivity.this);
                     builder.setMessage("Do you want to add digital certificate with this Signature?")
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
@@ -392,13 +376,12 @@ public class DigitalSignatureActivity extends AppCompatActivity {
                 RectF visibleRect = fASPageViewer.getVisibleRect();
                 float width = (visibleRect.left + (visibleRect.width() / 2.0f)) - (f / 2.0f);
                 float height = (visibleRect.top + (visibleRect.height() / 2.0f)) - (f2 / 2.0f);
-                PDSElementViewer lastFocusedElementViewer = fASPageViewer.getLastFocusedElementViewer();
+                fASPageViewer.getLastFocusedElementViewer();
 
-                PDSElement.PDSElementType fASElementType2 = fASElementType;
-                final PDSElement element = fASPageViewer.createElement(fASElementType2, bitmap, width, height, f, f2);
+                fASPageViewer.createElement(fASElementType, bitmap, width, height, f, f2);
                 if (!isSigned) {
                     AlertDialog dialog;
-                    AlertDialog.Builder builder = new AlertDialog.Builder(DigitalSignatureActivity.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(PDFViewerActivity.this);
                     builder.setMessage("Do you want to add digital certificate with this Signature?")
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
@@ -450,14 +433,14 @@ public class DigitalSignatureActivity extends AppCompatActivity {
     }
 
     private static class UIElementsHandler extends Handler {
-        private final WeakReference<DigitalSignatureActivity> mActivity;
+        private final WeakReference<PDFViewerActivity> mActivity;
 
-        public UIElementsHandler(DigitalSignatureActivity fASDocumentViewer) {
+        public UIElementsHandler(PDFViewerActivity fASDocumentViewer) {
             this.mActivity = new WeakReference(fASDocumentViewer);
         }
 
         public void handleMessage(Message message) {
-            DigitalSignatureActivity fASDocumentViewer = this.mActivity.get();
+            PDFViewerActivity fASDocumentViewer = this.mActivity.get();
             if (fASDocumentViewer != null && message.what == 1) {
                 fASDocumentViewer.fadePageNumberOverlay();
             }
@@ -479,7 +462,7 @@ public class DigitalSignatureActivity extends AppCompatActivity {
     }
 
     public void savePDFDocument() {
-        final Dialog dialog = new Dialog(DigitalSignatureActivity.this);
+        final Dialog dialog = new Dialog(PDFViewerActivity.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         final View alertView = getLayoutInflater().inflate(R.layout.file_alert_dialog, null);
         final EditText edittext = alertView.findViewById(R.id.editText2);
@@ -502,9 +485,9 @@ public class DigitalSignatureActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String fileName = edittext.getText().toString();
                 if (fileName.length() == 0) {
-                    Toast.makeText(DigitalSignatureActivity.this, "File name should not be empty", Toast.LENGTH_LONG).show();
+                    Toast.makeText(PDFViewerActivity.this, "File name should not be empty", Toast.LENGTH_LONG).show();
                 } else {
-                    PDSSaveAsPDFAsyncTask task = new PDSSaveAsPDFAsyncTask(DigitalSignatureActivity.this, fileName + ".pdf");
+                    PDSSaveAsPDFAsyncTask task = new PDSSaveAsPDFAsyncTask(PDFViewerActivity.this, fileName + ".pdf");
                     task.execute(new Void[0]);
                     dialog.dismiss();
                 }

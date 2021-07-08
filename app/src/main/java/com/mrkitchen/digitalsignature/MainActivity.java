@@ -38,13 +38,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.view.Menu;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -76,7 +74,7 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), DigitalSignatureActivity.class);
+                Intent intent = new Intent(getApplicationContext(), PDFViewerActivity.class);
                 intent.putExtra("ActivityAction", "FileSearch");
                 startActivityForResult(intent, Merge_Request_CODE);
             }
@@ -151,13 +149,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
@@ -201,8 +192,6 @@ public class MainActivity extends AppCompatActivity
             in.close();
             out.flush();
             out.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -229,7 +218,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void StartSignatureActivity(String message, ArrayList<Uri> imageUris) {
-        Intent intent = new Intent(getApplicationContext(), DigitalSignatureActivity.class);
+        Intent intent = new Intent(getApplicationContext(), PDFViewerActivity.class);
         intent.putExtra("ActivityAction", message);
         intent.putExtra("PDFOpen", imageUris);
         startActivityForResult(intent, Merge_Request_CODE);
@@ -321,7 +310,6 @@ public class MainActivity extends AppCompatActivity
                 Intent target = new Intent(Intent.ACTION_SEND);
                 target.setType("text/plain");
                 target.putExtra(Intent.EXTRA_STREAM, contentUri);
-                target.putExtra(Intent.EXTRA_SUBJECT, "Subject");
                 startActivity(Intent.createChooser(target, "Send via Email..."));
             }
         });

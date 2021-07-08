@@ -63,7 +63,7 @@ public class FreeHandActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.freehandmenu, menu);
+        getMenuInflater().inflate(R.menu.signature_menu, menu);
         this.menu = menu;
         saveItem = menu.findItem(R.id.signature_save);
         saveItem.setEnabled(false);

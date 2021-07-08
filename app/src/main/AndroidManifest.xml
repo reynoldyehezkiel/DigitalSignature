@@ -22,7 +22,7 @@
             android:label="Signatures"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.mrkitchen.digitalsignature.DigitalSignatureActivity"
+            android:name="com.mrkitchen.digitalsignature.PDFViewerActivity"
             android:label=""
             android:screenOrientation="portrait" />
         <activity
