@@ -14,14 +14,14 @@ import java.util.ArrayList;
 public class PDSPDFPage {
     private static final transient SizeF DEF_PAGE_SIZE = new SizeF(595.0f, 842.0f);
     private static final transient Object sSynchronizedObject = new Object();
-    private ArrayList<PDSElement> mElements;
+    private final ArrayList<PDSElement> mElements;
     private SizeF mPageSize = null;
-    private PDSPDFDocument mPDFDocument;
-    private int mpageNumber;
-    private PDSPageViewer mviewer;
+    private final PDSPDFDocument mPDFDocument;
+    private final int mPageNumber;
+    private PDSPageViewer mViewer;
 
     public PDSPDFPage(int i, PDSPDFDocument fASPDFDocument) {
-        this.mpageNumber = i;
+        this.mPageNumber = i;
         this.mPDFDocument = fASPDFDocument;
         this.mElements = new ArrayList();
 
@@ -31,7 +31,7 @@ public class PDSPDFPage {
         if (this.mPageSize == null) {
             synchronized (PDSPDFDocument.getLockObject()) {
                 synchronized (getDocument()) {
-                    PdfRenderer.Page openPage = ((PDSPDFDocument) getDocument()).getRenderer().openPage(getNumber());
+                    PdfRenderer.Page openPage = getDocument().getRenderer().openPage(getNumber());
                     this.mPageSize = new SizeF((float) openPage.getWidth(), (float) openPage.getHeight());
                     openPage.close();
                 }
@@ -46,7 +46,7 @@ public class PDSPDFPage {
         synchronized (PDSPDFDocument.getLockObject()) {
             synchronized (getDocument()) {
 
-                PdfRenderer.Page openPage = ((PDSPDFDocument) getDocument()).getRenderer().openPage(getNumber());
+                PdfRenderer.Page openPage = getDocument().getRenderer().openPage(getNumber());
                 this.mPageSize = new SizeF((float) openPage.getWidth(), (float) openPage.getHeight());
                 openPage.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
                 openPage.close();
@@ -54,12 +54,12 @@ public class PDSPDFPage {
         }
     }
 
-    public void setPageViewer(PDSPageViewer mviewer) {
-        this.mviewer = mviewer;
+    public void setPageViewer(PDSPageViewer mViewer) {
+        this.mViewer = mViewer;
     }
 
     public PDSPageViewer getPageViewer() {
-        return mviewer;
+        return mViewer;
     }
 
     public PDSPDFDocument getDocument() {
@@ -67,7 +67,7 @@ public class PDSPDFPage {
     }
 
     public int getNumber() {
-        return this.mpageNumber;
+        return this.mPageNumber;
     }
 
     public void removeElement(PDSElement fASElement) {
@@ -84,7 +84,7 @@ public class PDSPDFPage {
     }
 
     public PDSElement getElement(int i) {
-        return (PDSElement) this.mElements.get(i);
+        return this.mElements.get(i);
     }
 
     public ArrayList<PDSElement> getElements() {

@@ -100,17 +100,14 @@ public class SignatureUtils {
     }
 
     private static SignatureView createFreeHandView(int i, int i2, ArrayList<ArrayList<Float>> arrayList, RectF rectF, float f, float f2, float f3, float f4, float f5, int strokeColor, Context context) {
-        int i3 = i;
-        int i4 = i2;
         SignatureView signatureView = new SignatureView(context, i, i2);
         signatureView.setStrokeWidth(f5);
         signatureView.setStrokeColor(strokeColor);
         signatureView.setmActualColor(strokeColor);
         signatureView.setEditable(false);
-        ArrayList<ArrayList<Float>> arrayList2 = arrayList;
         signatureView.initializeInkList(arrayList);
         signatureView.fillColor();
-        signatureView.scaleAndTranslatePath(arrayList2, rectF, f, f2, f3, f4);
+        signatureView.scaleAndTranslatePath(arrayList, rectF, f, f2, f3, f4);
         signatureView.invalidate();
         return signatureView;
     }
@@ -165,7 +162,7 @@ public class SignatureUtils {
                 e.printStackTrace();
             }
             try {
-                return (ViewHolder) new Gson().fromJson(getStringFromStream(openFileInput), new TypeToken<ViewHolder>() {
+                return new Gson().fromJson(getStringFromStream(openFileInput), new TypeToken<ViewHolder>() {
                 }.getType());
             } catch (IOException e) {
                 e.printStackTrace();

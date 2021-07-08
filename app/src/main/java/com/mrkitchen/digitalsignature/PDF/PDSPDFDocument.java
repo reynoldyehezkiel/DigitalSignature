@@ -16,9 +16,9 @@ public class PDSPDFDocument {
     private static final transient Object sLockObject = new Object();
     private HashMap<Integer, PDSPDFPage> mPages;
     private transient PdfRenderer mRenderer;
-    Uri pdfDocument = null;
+    Uri pdfDocument;
     public InputStream stream;
-    Context context = null;
+    Context context;
 
     public PDSPDFDocument(Context context, Uri document) throws FileNotFoundException {
         this.mPages = null;
@@ -63,7 +63,7 @@ public class PDSPDFDocument {
         if (i >= this.mNumPages || i < 0) {
             return null;
         }
-        PDSPDFPage fASPDFPage = (PDSPDFPage) this.mPages.get(Integer.valueOf(i));
+        PDSPDFPage fASPDFPage = this.mPages.get(Integer.valueOf(i));
         if (fASPDFPage != null) {
             return fASPDFPage;
         }

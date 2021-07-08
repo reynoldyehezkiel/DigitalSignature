@@ -57,22 +57,22 @@ public class PDFViewerActivity extends AppCompatActivity {
     private static final int READ_REQUEST_CODE = 42;
     private static final int SIGNATURE_Request_CODE = 43;
     private static final int IMAGE_REQUEST_CODE = 45;
-    private static final int DIGITALID_REQUEST_CODE = 44;
+    private static final int DIGITAL_ID_REQUEST_CODE = 44;
     Uri pdfData = null;
     private PDSViewPager mViewPager;
     PDSPageAdapter imageAdapter;
     private Context mContext = null;
-    private boolean mFirstTap = true;
+    private final boolean mFirstTap = true;
     private int mVisibleWindowHt = 0;
     private PDSPDFDocument mDocument = null;
-    private Uri mdigitalID = null;
-    public String mdigitalIDPassword = null;
-    private Menu mmenu = null;
+    private Uri mDigitalID = null;
+    public String mDigitalIDPassword = null;
+    private Menu mMenu = null;
     private final UIElementsHandler mUIElemsHandler = new UIElementsHandler(this);
-    AlertDialog passwordalertDialog;
+    AlertDialog passwordAlertDialog;
     AlertDialog signatureOptionDialog;
     public KeyStore keyStore = null;
-    public String alises = null;
+    public String aliases = null;
     public boolean isSigned = false;
     public ProgressBar savingProgress;
 
@@ -119,10 +119,10 @@ public class PDFViewerActivity extends AppCompatActivity {
             this.addElement(PDSElement.PDSElementType.PDSElementTypeSignature, fi, (float) SignatureUtils.getSignatureWidth((int) getResources().getDimension(R.dimen.sign_field_default_height), fi, getApplicationContext()), getResources().getDimension(R.dimen.sign_field_default_height));
 
         }
-        if (requestCode == DIGITALID_REQUEST_CODE) {
+        if (requestCode == DIGITAL_ID_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 if (result != null) {
-                    mdigitalID = result.getData();
+                    mDigitalID = result.getData();
                     GetPassword();
                 }
             } else {
@@ -151,10 +151,10 @@ public class PDFViewerActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.document_menu, menu);
-        this.mmenu = menu;
-        MenuItem saveItem = mmenu.findItem(R.id.action_save);
+        this.mMenu = menu;
+        MenuItem saveItem = mMenu.findItem(R.id.action_save);
         saveItem.getIcon().setAlpha(130);
-        MenuItem signItem = mmenu.findItem(R.id.action_sign);
+        MenuItem signItem = mMenu.findItem(R.id.action_sign);
         signItem.getIcon().setAlpha(255);
         return true;
     }
@@ -288,22 +288,22 @@ public class PDFViewerActivity extends AppCompatActivity {
                 if (password.length() == 0) {
                     Toast.makeText(PDFViewerActivity.this, "Password can't be blank", Toast.LENGTH_LONG).show();
                 } else {
-                    mdigitalIDPassword = password.getText().toString();
+                    mDigitalIDPassword = password.getText().toString();
                     BouncyCastleProvider provider = new BouncyCastleProvider();
                     Security.addProvider(provider);
                     try {
-                        InputStream inputStream = getContentResolver().openInputStream(mdigitalID);
+                        InputStream inputStream = getContentResolver().openInputStream(mDigitalID);
                         keyStore = KeyStore.getInstance("pkcs12", provider.getName());
-                        keyStore.load(inputStream, mdigitalIDPassword.toCharArray());
-                        alises = keyStore.aliases().nextElement();
-                        passwordalertDialog.dismiss();
+                        keyStore.load(inputStream, mDigitalIDPassword.toCharArray());
+                        aliases = keyStore.aliases().nextElement();
+                        passwordAlertDialog.dismiss();
                         Toast.makeText(PDFViewerActivity.this, "Digital certificate is added with Signature", Toast.LENGTH_LONG).show();
                     } catch (Exception e) {
                         if (e.getMessage().contains("wrong password")) {
                             Toast.makeText(PDFViewerActivity.this, "Password is incorrect or certificate is corrupted", Toast.LENGTH_LONG).show();
                         } else {
                             Toast.makeText(PDFViewerActivity.this, "Something went wrong while adding Digital certificate", Toast.LENGTH_LONG).show();
-                            passwordalertDialog.dismiss();
+                            passwordAlertDialog.dismiss();
                         }
                         e.printStackTrace();
                     }
@@ -311,14 +311,14 @@ public class PDFViewerActivity extends AppCompatActivity {
             }
         });
 
-        passwordalertDialog = dialogBuilder.create();
-        passwordalertDialog.show();
+        passwordAlertDialog = dialogBuilder.create();
+        passwordAlertDialog.show();
     }
 
     public void invokeMenuButton(boolean disableButtonFlag) {
-        MenuItem saveItem = mmenu.findItem(R.id.action_save);
+        MenuItem saveItem = mMenu.findItem(R.id.action_save);
         saveItem.setEnabled(disableButtonFlag);
-        MenuItem signPDF = mmenu.findItem(R.id.action_sign);
+        MenuItem signPDF = mMenu.findItem(R.id.action_sign);
         //signPDF.setEnabled(!disableButtonFlag);
         isSigned = disableButtonFlag;
         if (disableButtonFlag) {
@@ -351,7 +351,7 @@ public class PDFViewerActivity extends AppCompatActivity {
                                     intent.setType("application/keychain_access");
                                     String[] mimetypes = {"application/x-pkcs12"};
                                     intent.putExtra(Intent.EXTRA_MIME_TYPES, mimetypes);
-                                    startActivityForResult(intent, DIGITALID_REQUEST_CODE);
+                                    startActivityForResult(intent, DIGITAL_ID_REQUEST_CODE);
                                 }
                             })
                             .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -389,7 +389,7 @@ public class PDFViewerActivity extends AppCompatActivity {
                                     intent.setType("application/keychain_access");
                                     String[] mimetypes = {"application/x-pkcs12"};
                                     intent.putExtra(Intent.EXTRA_MIME_TYPES, mimetypes);
-                                    startActivityForResult(intent, DIGITALID_REQUEST_CODE);
+                                    startActivityForResult(intent, DIGITAL_ID_REQUEST_CODE);
                                 }
                             })
                             .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -420,7 +420,7 @@ public class PDFViewerActivity extends AppCompatActivity {
         this.mUIElemsHandler.removeMessages(1);
         Message message = new Message();
         message.what = 1;
-        this.mUIElemsHandler.sendMessageDelayed(message, (long) i);
+        this.mUIElemsHandler.sendMessageDelayed(message, i);
     }
 
     private void fadePageNumberOverlay() {

@@ -11,13 +11,13 @@ import com.mrkitchen.digitalsignature.PDF.PDSPDFPage;
 public class PDSRenderPageAsyncTask extends AsyncTask<Void, Void, Bitmap>  {
     private static final int MAX_BITMAP_SIZE = 3072;
     private SizeF mBitmapSize = null;
-    private Context mContext = null;
-    private boolean mForPrint = false;
-    private SizeF mImageViewSize = null;
-    private boolean mIncludePageElements = false;
-    private OnPostExecuteListener mListener = null;
+    private final Context mContext;
+    private final boolean mForPrint;
+    private final SizeF mImageViewSize;
+    private final boolean mIncludePageElements;
+    private final OnPostExecuteListener mListener;
     private final PDSPDFPage mPage;
-    private float mScale = 1.0f;
+    private final float mScale;
 
     public interface OnPostExecuteListener {
         void onPostExecute(PDSRenderPageAsyncTask fASRenderPageAsyncTask, Bitmap bitmap);

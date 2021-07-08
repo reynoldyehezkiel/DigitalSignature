@@ -12,7 +12,7 @@ import com.mrkitchen.digitalsignature.PDFViewerActivity;
 import com.mrkitchen.digitalsignature.PDF.PDSPDFDocument;
 import com.mrkitchen.digitalsignature.PDF.PDSPDFPage;
 import com.mrkitchen.digitalsignature.PDSModel.PDSElement;
-import com.mrkitchen.digitalsignature.utils.ViewUtils;
+import com.mrkitchen.digitalsignature.Utils.ViewUtils;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfContentByte;
@@ -36,7 +36,7 @@ import java.security.cert.Certificate;
 
 public class PDSSaveAsPDFAsyncTask extends AsyncTask<Void, Void, Boolean> {
 
-    private String mfileName;
+    private final String mfileName;
     PDFViewerActivity mCtx;
 
 
@@ -71,7 +71,7 @@ public class PDSSaveAsPDFAsyncTask extends AsyncTask<Void, Void, Boolean> {
             FileOutputStream os = new FileOutputStream(file);
             PdfReader reader = new PdfReader(stream);
             PdfStamper signer = null;
-            Bitmap createBitmap = null;
+            Bitmap createBitmap;
             for (int i = 0; i < document.getNumPages(); i++) {
                 Rectangle mediabox = reader.getPageSize(i + 1);
                 for (int j = 0; j < document.getPage(i).getNumElements(); j++) {
@@ -93,10 +93,10 @@ public class PDSSaveAsPDFAsyncTask extends AsyncTask<Void, Void, Boolean> {
                     createBitmap.recycle();
 
                     Image sigimage = Image.getInstance(byteArray);
-                    if (mCtx.alises != null && mCtx.keyStore != null && mCtx.mdigitalIDPassword != null) {
+                    if (mCtx.aliases != null && mCtx.keyStore != null && mCtx.mDigitalIDPassword != null) {
                         KeyStore ks = mCtx.keyStore;
-                        String alias = mCtx.alises;
-                        PrivateKey pk = (PrivateKey) ks.getKey(alias, mCtx.mdigitalIDPassword.toCharArray());
+                        String alias = mCtx.aliases;
+                        PrivateKey pk = (PrivateKey) ks.getKey(alias, mCtx.mDigitalIDPassword.toCharArray());
                         Certificate[] chain = ks.getCertificateChain(alias);
                         if (signer == null)
                             signer = PdfStamper.createSignature(reader, os, '\0');

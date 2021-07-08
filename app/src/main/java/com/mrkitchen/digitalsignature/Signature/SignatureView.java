@@ -214,7 +214,7 @@ public class SignatureView extends RelativeLayout {
     public void scaleAndTranslatePath(ArrayList<ArrayList<Float>> arrayList, RectF rectF, float f, float f2, float f3, float f4) {
         int size = arrayList.size();
         for (int i = 0; i < size; i++) {
-            ArrayList arrayList2 = (ArrayList) arrayList.get(i);
+            ArrayList arrayList2 = arrayList.get(i);
             for (int i2 = 0; i2 < arrayList2.size(); i2 += 2) {
                 arrayList2.set(i2, Float.valueOf((((Number) arrayList2.get(i2)).floatValue() * f) - f3));
                 int i3 = i2 + 1;
@@ -305,7 +305,7 @@ public class SignatureView extends RelativeLayout {
     private void redrawPath(Canvas canvas) {
         int size = this.mInkList.size();
         for (int i = 0; i < size; i++) {
-            ArrayList arrayList = (ArrayList) this.mInkList.get(i);
+            ArrayList arrayList = this.mInkList.get(i);
             touch_start(((Float) arrayList.get(0)).floatValue(), ((Float) arrayList.get(1)).floatValue());
             for (int i2 = 2; i2 < arrayList.size(); i2 += 2) {
                 touch_move(((Float) arrayList.get(i2)).floatValue(), ((Float) arrayList.get(i2 + 1)).floatValue());

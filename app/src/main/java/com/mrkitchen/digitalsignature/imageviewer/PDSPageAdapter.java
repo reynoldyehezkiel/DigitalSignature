@@ -1,4 +1,4 @@
-package com.mrkitchen.digitalsignature.imageviewer;
+package com.mrkitchen.digitalsignature.ImageViewer;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -8,7 +8,7 @@ import com.mrkitchen.digitalsignature.PDF.PDSPDFDocument;
 
 public class PDSPageAdapter extends FragmentStatePagerAdapter {
 
-    private PDSPDFDocument mDocument;
+    private final PDSPDFDocument mDocument;
 
     public PDSPageAdapter(FragmentManager fragmentManager, PDSPDFDocument fASDocument) {
         super(fragmentManager);

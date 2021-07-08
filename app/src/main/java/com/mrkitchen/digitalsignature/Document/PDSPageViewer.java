@@ -35,8 +35,8 @@ import com.mrkitchen.digitalsignature.PDF.PDSPDFPage;
 import com.mrkitchen.digitalsignature.PDSModel.PDSElement;
 import com.mrkitchen.digitalsignature.R;
 import com.mrkitchen.digitalsignature.Signature.SignatureView;
-import com.mrkitchen.digitalsignature.utils.PDSSignatureUtils;
-import com.mrkitchen.digitalsignature.utils.ViewUtils;
+import com.mrkitchen.digitalsignature.Utils.PDSSignatureUtils;
+import com.mrkitchen.digitalsignature.Utils.ViewUtils;
 
 import java.io.File;
 import java.util.Observable;
@@ -47,8 +47,8 @@ public class PDSPageViewer extends FrameLayout implements Observer {
     private final LayoutInflater mInflater;
     private final LinearLayout mProgressView;
     private final ScaleGestureListener mScaleGestureListener;
-    private ScaleGestureDetector mScaleGestureDetector = null;
-    private GestureDetector mGestureDetector = null;
+    private final ScaleGestureDetector mScaleGestureDetector;
+    private final GestureDetector mGestureDetector;
     PDSRenderPageAsyncTask mInitialRenderingTask = null;
     private PDSRenderPageAsyncTask mRenderPageTask = null;
     private final Context mContext;
@@ -59,23 +59,22 @@ public class PDSPageViewer extends FrameLayout implements Observer {
     private float mStartScaleFactor = 1.0f;
     private int mMaxScrollX = 0;
     private int mMaxScrollY = 0;
-    private RelativeLayout mPageView = null;
-    private RelativeLayout mScrollView = null;
-    private OverScroller mScroller = null;
+    private final RelativeLayout mPageView;
+    private final RelativeLayout mScrollView;
+    private final OverScroller mScroller;
     private long mLastZoomTime = 0;
     private boolean mIsFirstScrollAfterIntercept = false;
     private boolean mIsInterceptedScrolling = false;
-    private int mKeyboardHeight = 0;
-    private boolean mKeyboardShown = false;
+    private final int mKeyboardHeight = 0;
+    private final boolean mKeyboardShown = false;
     private boolean mResizeInOperation = false;
     private boolean mRenderPageTaskPending = false;
     private float mBitmapScale = 1.0f;
-    private PDSPDFPage mPage;
+    private final PDSPDFPage mPage;
     SizeF mInitialImageSize = null;
     private Bitmap mImage = null;
     private RectF mImageContentRect = null;
     private Matrix mToPDFCoordinatesMatrix = null;
-    private boolean mRenderingComplete = false;
     private Matrix mToViewCoordinatesMatrix = null;
     private float mInterceptedDownX = 0.0f;
     private float mInterceptedDownY = 0.0f;
@@ -84,12 +83,11 @@ public class PDSPageViewer extends FrameLayout implements Observer {
     private float mLastDragPointY = -1.0f;
     private View mElementPropMenu = null;
     private PDSElementViewer mLastFocusedElementViewer = null;
-    private boolean mElementAlreadyPresentOnTap;
     private View mElementCreationMenu = null;
     private float mTouchX = 0.0f;
     private float mTouchY = 0.0f;
     private ImageView mDragShadowView = null;
-    PDFViewerActivity activity = null;
+    PDFViewerActivity activity;
 
     public PDSPageViewer(Context context, PDFViewerActivity activity, PDSPDFPage pdfPage) {
         super(context);
@@ -202,7 +200,6 @@ public class PDSPageViewer extends FrameLayout implements Observer {
 
         public boolean onSingleTapUp(MotionEvent motionEvent) {
             super.onSingleTapUp(motionEvent);
-            PDSPageViewer.this.mElementAlreadyPresentOnTap = false;
             PDSPageViewer.this.onTap(motionEvent, false);
             return true;
         }
@@ -464,7 +461,6 @@ public class PDSPageViewer extends FrameLayout implements Observer {
                     } else if (bitmap != null) {
                         bitmap.recycle();
                     }
-                    PDSPageViewer.this.mRenderingComplete = true;
                 }
             });
             this.mInitialRenderingTask.execute(new Void[0]);
@@ -632,7 +628,6 @@ public class PDSPageViewer extends FrameLayout implements Observer {
     }
 
     public void setElementAlreadyPresentOnTap(boolean z) {
-        this.mElementAlreadyPresentOnTap = z;
     }
 
     public void showElementPropMenu(final PDSElementViewer fASElementViewer) {
@@ -645,7 +640,7 @@ public class PDSPageViewer extends FrameLayout implements Observer {
         this.mScrollView.addView(inflate);
         this.mElementPropMenu = inflate;
 
-        ((ImageButton) inflate.findViewById(R.id.delButton)).setOnClickListener(new OnClickListener() {
+        inflate.findViewById(R.id.delButton).setOnClickListener(new OnClickListener() {
             public void onClick(View view) {
                 fASElementViewer.removeElement();
                 activity.invokeMenuButton(false);
@@ -709,27 +704,22 @@ public class PDSPageViewer extends FrameLayout implements Observer {
     }
 
     public void modifyElementSignatureSize(PDSElement fASElement, View view, RelativeLayout relativeLayout, int i, int i2) {
-        RelativeLayout relativeLayout2 = relativeLayout;
-        int i3 = i;
-        int i4 = i2;
-        float f = (float) i4;
-        if (getImageContentRect().contains(new RectF(relativeLayout.getX(), relativeLayout.getY() - f, (relativeLayout.getX() + ((float) relativeLayout.getWidth())) + ((float) i3), relativeLayout.getY() + ((float) relativeLayout.getHeight())))) {
+        float f = (float) i2;
+        if (getImageContentRect().contains(new RectF(relativeLayout.getX(), relativeLayout.getY() - f, (relativeLayout.getX() + ((float) relativeLayout.getWidth())) + ((float) i), relativeLayout.getY() + ((float) relativeLayout.getHeight())))) {
             if (view instanceof SignatureView) {
                 SignatureView signatureView = (SignatureView) view;
-                signatureView.setLayoutParams(view.getWidth() + i3, view.getHeight() + i4);
-                relativeLayout2.setLayoutParams(new RelativeLayout.LayoutParams(relativeLayout.getWidth() + i3, relativeLayout.getHeight() + i4));
-                relativeLayout2.setY(relativeLayout.getY() - f);
-                PDSElement fASElement2 = fASElement;
-                this.mPage.updateElement(fASElement2, mapRectToPDFCoordinates(new RectF((float) ((int) relativeLayout.getX()), (float) ((int) relativeLayout.getY()), (float) ((int) (relativeLayout.getX() + ((float) view.getWidth()))), (float) ((int) (relativeLayout.getY() + ((float) view.getHeight()))))), 0.0f, 0.0f, signatureView.getStrokeWidth(), 0.0f);
-                setMenuPosition(relativeLayout2, this.mElementPropMenu);
+                signatureView.setLayoutParams(view.getWidth() + i, view.getHeight() + i2);
+                relativeLayout.setLayoutParams(new RelativeLayout.LayoutParams(relativeLayout.getWidth() + i, relativeLayout.getHeight() + i2));
+                relativeLayout.setY(relativeLayout.getY() - f);
+                this.mPage.updateElement(fASElement, mapRectToPDFCoordinates(new RectF((float) ((int) relativeLayout.getX()), (float) ((int) relativeLayout.getY()), (float) ((int) (relativeLayout.getX() + ((float) view.getWidth()))), (float) ((int) (relativeLayout.getY() + ((float) view.getHeight()))))), 0.0f, 0.0f, signatureView.getStrokeWidth(), 0.0f);
+                setMenuPosition(relativeLayout, this.mElementPropMenu);
             } else if (view instanceof ImageView) {
                 ImageView signatureView = (ImageView) view;
-                signatureView.setLayoutParams(new RelativeLayout.LayoutParams(view.getWidth() + i3, view.getHeight() + i4));
-                relativeLayout2.setLayoutParams(new RelativeLayout.LayoutParams(relativeLayout.getWidth() + i3, relativeLayout.getHeight() + i4));
-                relativeLayout2.setY(relativeLayout.getY() - f);
-                PDSElement fASElement2 = fASElement;
-                this.mPage.updateElement(fASElement2, mapRectToPDFCoordinates(new RectF((float) ((int) relativeLayout.getX()), (float) ((int) relativeLayout.getY()), (float) ((int) (relativeLayout.getX() + ((float) view.getWidth()))), (float) ((int) (relativeLayout.getY() + ((float) view.getHeight()))))), 0.0f, 0.0f, 0.0f, 0.0f);
-                setMenuPosition(relativeLayout2, this.mElementPropMenu);
+                signatureView.setLayoutParams(new RelativeLayout.LayoutParams(view.getWidth() + i, view.getHeight() + i2));
+                relativeLayout.setLayoutParams(new RelativeLayout.LayoutParams(relativeLayout.getWidth() + i, relativeLayout.getHeight() + i2));
+                relativeLayout.setY(relativeLayout.getY() - f);
+                this.mPage.updateElement(fASElement, mapRectToPDFCoordinates(new RectF((float) ((int) relativeLayout.getX()), (float) ((int) relativeLayout.getY()), (float) ((int) (relativeLayout.getX() + ((float) view.getWidth()))), (float) ((int) (relativeLayout.getY() + ((float) view.getHeight()))))), 0.0f, 0.0f, 0.0f, 0.0f);
+                setMenuPosition(relativeLayout, this.mElementPropMenu);
             }
         }
     }

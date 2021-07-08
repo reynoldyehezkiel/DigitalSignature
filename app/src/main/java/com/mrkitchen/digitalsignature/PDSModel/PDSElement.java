@@ -8,33 +8,19 @@ import com.mrkitchen.digitalsignature.Document.PDSElementViewer;
 import java.io.File;
 
 public class PDSElement {
-
-
     private float mHorizontalPadding = 0.0f;
-
     private float mLetterSpace = 0.0f;
-
     private float mMaxWidth = 0.0f;
-
     private float mMinWidth = 0.0f;
-
     private RectF mRect = null;
-
     private float mSize = 0.0f;
-
     private float mStrokeWidth = 0.0f;
-
-    private PDSElementType mType = PDSElementType.PDSElementTypeSignature;
-
+    private final PDSElementType mType;
     public PDSElementViewer mElementViewer;
-
-    private File mfile = null;
-
+    private File mFile = null;
     private Bitmap bitmap = null;
-
     private float mVerticalPadding = 0.0f;
-
-    private String malises;
+    private String mAliases;
 
     public enum PDSElementType {
         PDSElementTypeImage,
@@ -43,7 +29,7 @@ public class PDSElement {
 
     public PDSElement(PDSElementType fASElementType, File file) {
         this.mType = fASElementType;
-        mfile = file;
+        mFile = file;
     }
 
     public PDSElement(PDSElementType fASElementType, Bitmap file) {
@@ -124,14 +110,14 @@ public class PDSElement {
     }
 
     public File getFile() {
-        return mfile;
+        return mFile;
     }
 
     public String getAlises() {
-        return malises;
+        return mAliases;
     }
 
     public void setAlises(String alises) {
-        this.malises = alises;
+        this.mAliases = alises;
     }
 }

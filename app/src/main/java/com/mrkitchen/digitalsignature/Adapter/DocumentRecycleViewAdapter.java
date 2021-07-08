@@ -6,20 +6,25 @@ import android.graphics.Color;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.SparseBooleanArray;
-import android.view.*;
-import android.widget.*;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.mrkitchen.digitalsignature.R;
 
 import java.io.File;
-import java.text.*;
-import java.util.*;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 public class DocumentRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public List<File> items;
 
-    private SparseBooleanArray selected_items;
+    private final SparseBooleanArray selected_items;
     private int current_selected_idx = -1;
     private Context ctx;
     private OnItemClickListener mOnItemClickListener;
@@ -40,7 +45,7 @@ public class DocumentRecycleViewAdapter extends RecyclerView.Adapter<RecyclerVie
         selected_items = new SparseBooleanArray();
     }
 
-    public class OriginalViewHolder extends RecyclerView.ViewHolder {
+    public static class OriginalViewHolder extends RecyclerView.ViewHolder {
         public ImageView image;
         public TextView name;
         public TextView brief;
@@ -118,7 +123,7 @@ public class DocumentRecycleViewAdapter extends RecyclerView.Adapter<RecyclerVie
 
     public String GetSize(long size) {
         String[] dictionary = {"bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"};
-        int index = 0;
+        int index;
         double m = size;
         DecimalFormat dec = new DecimalFormat("0.00");
         for (index = 0; index < dictionary.length; index++) {

@@ -19,22 +19,22 @@ import android.widget.RelativeLayout;
 import com.mrkitchen.digitalsignature.PDSModel.PDSElement;
 import com.mrkitchen.digitalsignature.R;
 import com.mrkitchen.digitalsignature.Signature.SignatureView;
-import com.mrkitchen.digitalsignature.utils.ViewUtils;
+import com.mrkitchen.digitalsignature.Utils.ViewUtils;
 
 public class PDSElementViewer {
-    private static int MOTION_THRESHOLD = 3;
-    private static int MOTION_THRESHOLD_LONG_PRESS = 12;
+    private static final int MOTION_THRESHOLD = 3;
+    private static final int MOTION_THRESHOLD_LONG_PRESS = 12;
     private boolean mBorderShown = false;
     private RelativeLayout mContainerView = null;
-    private Context mContext = null;
-    private PDSElement mElement = null;
+    private final Context mContext;
+    private final PDSElement mElement;
     private View mElementView = null;
     private boolean mHasDragStarted = false;
     private ImageButton mImageButton = null;
     private float mLastMotionX = 0.0f;
     private float mLastMotionY = 0.0f;
     private boolean mLongPress = false;
-    public PDSPageViewer mPageViewer = null;
+    public PDSPageViewer mPageViewer;
     private float mResizeInitialPos = 0.0f;
 
     class CustomDragShadowBuilder extends View.DragShadowBuilder {
@@ -57,7 +57,7 @@ public class PDSElementViewer {
         }
     }
 
-    class DragEventData {
+    static class DragEventData {
         public PDSElementViewer viewer;
         public float x;
         public float y;

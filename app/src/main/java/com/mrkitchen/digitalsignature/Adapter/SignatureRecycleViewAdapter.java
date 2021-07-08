@@ -5,9 +5,11 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.*;
-import android.widget.*;
-
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
 
 import com.mrkitchen.digitalsignature.R;
 import com.mrkitchen.digitalsignature.Signature.SignatureView;
@@ -17,7 +19,7 @@ import java.io.File;
 import java.util.List;
 
 public class SignatureRecycleViewAdapter extends RecyclerView.Adapter<SignatureRecycleViewAdapter.MyViewHolder> {
-    private List<File> signatures;
+    private final List<File> signatures;
 
     public SignatureRecycleViewAdapter(List<File> myDataset) {
         signatures = myDataset;
@@ -36,8 +38,7 @@ public class SignatureRecycleViewAdapter extends RecyclerView.Adapter<SignatureR
         View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.signature_item, viewGroup, false);
 
-        MyViewHolder vh = new MyViewHolder(viewGroup.getContext(), v);
-        return vh;
+        return new MyViewHolder(viewGroup.getContext(), v);
     }
 
     @Override
@@ -82,7 +83,7 @@ public class SignatureRecycleViewAdapter extends RecyclerView.Adapter<SignatureR
         return signatures.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         public FrameLayout layout;
         public Context context;
         public ImageButton deleteSignature;

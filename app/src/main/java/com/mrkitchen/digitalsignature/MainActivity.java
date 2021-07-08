@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity
     private static final int RQS_OPEN_DOCUMENT_TREE = 24;
     private File selectedFile;
 
-    private Handler mHandler = new Handler();
+    private final Handler mHandler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -393,7 +393,7 @@ public class MainActivity extends AppCompatActivity
         LayoutInflater inflater = this.getLayoutInflater();
         View view = inflater.inflate(R.layout.rename_layout, null);
         builder.setView(view);
-        final EditText editText = (EditText) view.findViewById(R.id.renameEditText2);
+        final EditText editText = view.findViewById(R.id.renameEditText2);
         editText.setText(currentFile.getName());
         builder.setTitle("Rename");
         builder.setPositiveButton("Rename", new DialogInterface.OnClickListener() {

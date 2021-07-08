@@ -12,8 +12,8 @@ import com.mrkitchen.digitalsignature.PDFViewerActivity;
 import fr.castorflex.android.verticalviewpager.VerticalViewPager;
 
 public class PDSViewPager extends VerticalViewPager {
-    private Context mActivityContext = null;
-    private boolean mDownReceieved = true;
+    private final Context mActivityContext;
+    private boolean mDownReceived = true;
 
     public PDSViewPager(Context context) {
         super(context);
@@ -53,12 +53,12 @@ public class PDSViewPager extends VerticalViewPager {
 
     public boolean onInterceptTouchEvent(MotionEvent motionEvent) {
         if (motionEvent.getActionMasked() == MotionEvent.ACTION_DOWN) {
-            this.mDownReceieved = true;
+            this.mDownReceived = true;
         }
-        if (motionEvent.getPointerCount() <= 1 && this.mDownReceieved) {
+        if (motionEvent.getPointerCount() <= 1 && this.mDownReceived) {
             return super.onInterceptTouchEvent(motionEvent);
         }
-        this.mDownReceieved = false;
+        this.mDownReceived = false;
         return false;
 
     }
