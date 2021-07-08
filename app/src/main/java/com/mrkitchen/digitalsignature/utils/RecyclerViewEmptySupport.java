@@ -1,4 +1,4 @@
-package com.mrkitchen.digitalsignature.utils;
+package com.mrkitchen.digitalsignature.Utils;
 import android.content.Context;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.AttributeSet;

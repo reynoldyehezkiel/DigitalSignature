@@ -10,9 +10,9 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 
-import com.mrkitchen.digitalsignature.Adapter.MainRecycleViewAdapter;
+import com.mrkitchen.digitalsignature.Adapter.DocumentRecycleViewAdapter;
 import com.mrkitchen.digitalsignature.Signature.SignatureActivity;
-import com.mrkitchen.digitalsignature.utils.RecyclerViewEmptySupport;
+import com.mrkitchen.digitalsignature.Utils.RecyclerViewEmptySupport;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity
     private static final int Merge_Request_CODE = 43;
     private RecyclerViewEmptySupport recyclerView;
     List<File> items = null;
-    private MainRecycleViewAdapter mAdapter;
+    private DocumentRecycleViewAdapter mAdapter;
     private BottomSheetDialog mBottomSheetDialog;
     Uri pdfData = null;
     private static final int RQS_OPEN_DOCUMENT_TREE = 24;
@@ -280,8 +280,8 @@ public class MainActivity extends AppCompatActivity
             }
 
             //set data and list adapter
-            mAdapter = new MainRecycleViewAdapter(this, items);
-            mAdapter.setOnItemClickListener(new MainRecycleViewAdapter.OnItemClickListener() {
+            mAdapter = new DocumentRecycleViewAdapter(this, items);
+            mAdapter.setOnItemClickListener(new DocumentRecycleViewAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, File value, int position) {
                     showBottomSheetDialog(value);

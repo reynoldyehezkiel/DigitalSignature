@@ -5,16 +5,13 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
+import android.view.*;
+import android.widget.*;
 
 
 import com.mrkitchen.digitalsignature.R;
 import com.mrkitchen.digitalsignature.Signature.SignatureView;
-import com.mrkitchen.digitalsignature.utils.PDSSignatureUtils;
+import com.mrkitchen.digitalsignature.Utils.PDSSignatureUtils;
 
 import java.io.File;
 import java.util.List;

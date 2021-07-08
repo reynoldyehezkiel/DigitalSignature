@@ -6,22 +6,16 @@ import android.graphics.Color;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.SparseBooleanArray;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-
+import android.view.*;
+import android.widget.*;
 
 import com.mrkitchen.digitalsignature.R;
 
 import java.io.File;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.text.*;
+import java.util.*;
 
-public class MainRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class DocumentRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public List<File> items;
 
@@ -40,7 +34,7 @@ public class MainRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         this.mOnItemClickListener = mItemClickListener;
     }
 
-    public MainRecycleViewAdapter(Context context, List<File> items) {
+    public DocumentRecycleViewAdapter(Context context, List<File> items) {
         this.items = items;
         ctx = context;
         selected_items = new SparseBooleanArray();

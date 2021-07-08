@@ -52,7 +52,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <com.mrkitchen.digitalsignature.utils.RecyclerViewEmptySupport
+    <com.mrkitchen.digitalsignature.Utils.RecyclerViewEmptySupport
         android:id="@+id/mainRecycleView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

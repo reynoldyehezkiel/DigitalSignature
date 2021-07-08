@@ -40,7 +40,7 @@ import com.mrkitchen.digitalsignature.PDF.PDSPDFDocument;
 import com.mrkitchen.digitalsignature.PDSModel.PDSElement;
 import com.mrkitchen.digitalsignature.Signature.SignatureActivity;
 import com.mrkitchen.digitalsignature.Signature.SignatureUtils;
-import com.mrkitchen.digitalsignature.imageviewer.PDSPageAdapter;
+import com.mrkitchen.digitalsignature.ImageViewer.PDSPageAdapter;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 

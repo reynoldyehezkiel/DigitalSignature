@@ -19,7 +19,7 @@ import android.view.View;
 
 import com.mrkitchen.digitalsignature.Adapter.SignatureRecycleViewAdapter;
 import com.mrkitchen.digitalsignature.R;
-import com.mrkitchen.digitalsignature.utils.RecyclerViewEmptySupport;
+import com.mrkitchen.digitalsignature.Utils.RecyclerViewEmptySupport;
 
 import java.io.File;
 import java.util.ArrayList;
