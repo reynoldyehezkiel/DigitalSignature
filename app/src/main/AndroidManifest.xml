@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.benzveen.pdfdigitalsignature">
+    package="com.mrkitchen.digitalsignature">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -14,19 +14,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Signature.FreeHandActivity"
+            android:name="com.mrkitchen.digitalsignature.Signature.FreeHandActivity"
             android:label="Draw Signature"
             android:screenOrientation="landscape"></activity>
         <activity
-            android:name=".Signature.SignatureActivity"
+            android:name="com.mrkitchen.digitalsignature.Signature.SignatureActivity"
             android:label="Signatures"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".DigitalSignatureActivity"
+            android:name="com.mrkitchen.digitalsignature.DigitalSignatureActivity"
             android:label=""
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.mrkitchen.digitalsignature.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
