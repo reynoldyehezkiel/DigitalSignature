@@ -119,7 +119,6 @@ public class FreeHandActivity extends AppCompatActivity {
 
     public void onConfigurationChanged(Configuration configuration) {
         super.onConfigurationChanged(configuration);
-
     }
 
     public void clearSignature() {

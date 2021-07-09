@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent result) {
+        super.onActivityResult(requestCode, resultCode, result);
         if (requestCode == Merge_Request_CODE && resultCode == Activity.RESULT_OK) {
             if (result != null) {
                 CreateDataSource();
@@ -163,8 +164,9 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_home) {
             // Handle the camera action
         } else if (id == R.id.nav_signatures) {
-
-            mHandler.postDelayed(mUpdateTimeTask, 100);
+            mHandler.postDelayed(mUpdateTimeTaskSignature, 100);
+        } else if (id == R.id.nav_about){
+            mHandler.postDelayed(mUpdateTimeTaskAbout, 100);
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -172,10 +174,17 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private Runnable mUpdateTimeTask = new Runnable() {
+    private final Runnable mUpdateTimeTaskSignature = new Runnable() {
         public void run() {
             Intent intent = new Intent(getApplicationContext(), SignatureActivity.class);
             intent.putExtra("ActivityAction", "Open");
+            startActivity(intent);
+        }
+    };
+
+    private final Runnable mUpdateTimeTaskAbout = new Runnable() {
+        public void run() {
+            Intent intent = new Intent(getApplicationContext(), AboutActivity.class);
             startActivity(intent);
         }
     };

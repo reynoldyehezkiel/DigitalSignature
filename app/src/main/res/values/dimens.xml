@@ -14,7 +14,7 @@
     <dimen name="signature_button_padding_right">20.0dip</dimen>
     <dimen name="sign_here_left_margin">20.0dip</dimen>
     <dimen name="sign_here_bottom_margin">74.0dip</dimen>
-    <dimen name="signature_base_line_bottom_margin">80.0dip</dimen>
+    <dimen name="signature_base_line_bottom_margin">50.0dip</dimen>
     <dimen name="signature_panel_horizontal_margin">0.0dip</dimen>
     <dimen name="sign_left_offset">24.0dip</dimen>
     <dimen name="sign_right_offset">16.0dip</dimen>

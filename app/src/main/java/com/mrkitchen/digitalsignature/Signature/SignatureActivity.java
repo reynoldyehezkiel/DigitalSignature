@@ -73,6 +73,7 @@ public class SignatureActivity extends AppCompatActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent result) {
+        super.onActivityResult(requestCode, resultCode, result);
         if (requestCode == FREEHAND_Request_CODE && resultCode == Activity.RESULT_OK) {
             if (result != null) {
                 CreateDataSource();

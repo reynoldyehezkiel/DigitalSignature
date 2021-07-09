@@ -19,7 +19,7 @@
             android:layout_height="?attr/actionBarSize"
             android:padding="@dimen/spacing_large"
             android:src="@drawable/ic_tool_open_file"
-            android:tint="@color/grey_10" />
+            app:tint="@color/grey_10" />
 
         <TextView
             android:layout_width="match_parent"
@@ -44,7 +44,7 @@
             android:layout_height="?attr/actionBarSize"
             android:padding="@dimen/spacing_large"
             android:src="@drawable/ic_tool_send"
-            android:tint="@color/grey_10" />
+            app:tint="@color/grey_10" />
 
         <TextView
             android:layout_width="match_parent"
@@ -68,7 +68,7 @@
             android:layout_height="?attr/actionBarSize"
             android:padding="@dimen/spacing_large"
             android:src="@drawable/ic_tool_share"
-            android:tint="@color/grey_10" />
+            app:tint="@color/grey_10" />
 
         <TextView
             android:id="@+id/textView2"
@@ -93,7 +93,7 @@
             android:layout_height="?attr/actionBarSize"
             android:padding="@dimen/spacing_large"
             android:src="@drawable/ic_tool_download"
-            android:tint="@color/grey_10" />
+            app:tint="@color/grey_10" />
 
         <TextView
             android:id="@+id/textView4"
@@ -118,7 +118,7 @@
             android:layout_height="?attr/actionBarSize"
             android:padding="@dimen/spacing_large"
             android:src="@drawable/ic_tool_rename"
-            android:tint="@color/grey_10" />
+            app:tint="@color/grey_10" />
 
         <TextView
             android:layout_width="match_parent"
@@ -142,7 +142,7 @@
             android:layout_height="?attr/actionBarSize"
             android:padding="@dimen/spacing_large"
             android:src="@drawable/ic_tool_delete"
-            android:tint="@color/grey_10" />
+            app:tint="@color/grey_10" />
 
         <TextView
             android:layout_width="match_parent"

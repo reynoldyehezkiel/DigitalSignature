@@ -13,5 +13,9 @@
             android:id="@+id/nav_signatures"
             android:icon="@drawable/ic_menu_signature"
             android:title="@string/menu_signature" />
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_menu_about"
+            android:title="@string/about" />
 
 </menu>

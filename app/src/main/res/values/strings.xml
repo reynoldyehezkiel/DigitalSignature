@@ -11,4 +11,6 @@
     <string name="signature_title">Place Signature</string>
     <string name="action_save">Done</string>
     <string name="clear">Clear</string>
+    <string name="about">About</string>
+    <string name="copyright">Copyright © 2021 Benzveen. All rights reserved.</string>
 </resources>
