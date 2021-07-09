@@ -347,27 +347,27 @@ public class PDFViewerActivity extends AppCompatActivity {
 
                 fASPageViewer.createElement(fASElementType, file, width, height, f, f2);
 
-//                if (!isSigned) {
-//                    AlertDialog dialog;
-//                    AlertDialog.Builder builder = new AlertDialog.Builder(PDFViewerActivity.this);
-//                    builder.setMessage("Do you want to add digital certificate with this Signature?")
-//                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                                public void onClick(DialogInterface dialog, int id) {
-//                                    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-//                                    intent.setType("application/keychain_access");
-//                                    String[] mimetypes = {"application/x-pkcs12"};
-//                                    intent.putExtra(Intent.EXTRA_MIME_TYPES, mimetypes);
-//                                    startActivityForResult(intent, DIGITAL_ID_REQUEST_CODE);
-//                                }
-//                            })
-//                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
-//                                public void onClick(DialogInterface dialog, int id) {
-//                                    dialog.dismiss();
-//                                }
-//                            });
-//                    dialog = builder.create();
-//                    dialog.show();
-//                }
+                if (!isSigned) {
+                    AlertDialog dialog;
+                    AlertDialog.Builder builder = new AlertDialog.Builder(PDFViewerActivity.this);
+                    builder.setMessage("Do you want to add digital certificate with this Signature?")
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                                    intent.setType("application/keychain_access");
+                                    String[] mimetypes = {"application/x-pkcs12"};
+                                    intent.putExtra(Intent.EXTRA_MIME_TYPES, mimetypes);
+                                    startActivityForResult(intent, DIGITAL_ID_REQUEST_CODE);
+                                }
+                            })
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    dialog = builder.create();
+                    dialog.show();
+                }
             }
             invokeMenuButton(true);
         }
