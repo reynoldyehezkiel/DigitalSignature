@@ -15,11 +15,6 @@ public class AboutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        Spanned policy = Html.fromHtml(getString(R.string.self_signed_link));
-        TextView termsOfUse = (TextView)findViewById(R.id.self_signed_digital);
-        termsOfUse.setText(policy);
-        termsOfUse.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     @Override

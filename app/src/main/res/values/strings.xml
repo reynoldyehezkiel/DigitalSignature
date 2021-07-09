@@ -18,10 +18,5 @@
         \n
         This app is created by Benzveen and modified by Reynold Yehezkiel.
         It helps you to digitally sign PDF Document from your phone using handwritten signature or image.
-        \n\n
-        To have digital certificate for your signature, follow the below link to create a self signed certificate.
-    </string>
-    <string name="self_signed_link">
-        &lt;a href=https://helpx.adobe.com/acrobat/using/digital-ids.html#create_a_self_signed_digital_id>Create a self-signed digital ID by Adobe&lt;/a>
     </string>
 </resources>
