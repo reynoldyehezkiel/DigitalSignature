@@ -12,4 +12,4 @@
 /captures
 .externalNativeBuild
 key.jks
-#app/release
+app/release
