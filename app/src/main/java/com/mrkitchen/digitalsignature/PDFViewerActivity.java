@@ -103,6 +103,7 @@ public class PDFViewerActivity extends AppCompatActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent result) {
+        super.onActivityResult(requestCode, resultCode, result);
         if (requestCode == READ_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 if (result != null) {
