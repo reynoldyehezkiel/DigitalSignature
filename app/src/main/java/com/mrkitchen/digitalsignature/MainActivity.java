@@ -16,6 +16,7 @@ import com.mrkitchen.digitalsignature.Utils.RecyclerViewEmptySupport;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import android.os.Environment;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -263,7 +264,7 @@ public class MainActivity extends AppCompatActivity
         if (recyclerView != null) {
             items = new ArrayList<File>();
 
-            File root = getFilesDir();
+            File root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
             File myDir = new File(root + "/DigitalSignature");
             if (!myDir.exists()) {
                 myDir.mkdirs();
@@ -407,8 +408,8 @@ public class MainActivity extends AppCompatActivity
         builder.setTitle("Rename");
         builder.setPositiveButton("Rename", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                File root = getFilesDir();
-                File file = new File(root + "/DigitalSignature", editText.getText().toString());
+                File root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+                File file = new File(root + "/DigitalSignature",editText.getText().toString());
                 currentFile.renameTo(file);
                 dialog.dismiss();
                 CreateDataSource();

@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.RectF;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.os.Looper;
 import android.view.View;
 import android.widget.Toast;
@@ -57,13 +58,13 @@ public class PDSSaveAsPDFAsyncTask extends AsyncTask<Void, Void, Boolean> {
             Looper.prepare();
         }
         PDSPDFDocument document = mCtx.getDocument();
-        File root = mCtx.getFilesDir();
 
+        File root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
         File myDir = new File(root + "/DigitalSignature");
         if (!myDir.exists()) {
             myDir.mkdirs();
         }
-        File file = new File(myDir.getAbsolutePath(), mfileName);
+        File file = new File(myDir, mfileName);
         if (file.exists())
             file.delete();
         try {
