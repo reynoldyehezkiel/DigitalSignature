@@ -42,14 +42,11 @@ import com.mrkitchen.digitalsignature.Signature.SignatureActivity;
 import com.mrkitchen.digitalsignature.Signature.SignatureUtils;
 import com.mrkitchen.digitalsignature.ImageViewer.PDSPageAdapter;
 
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.security.KeyStore;
-import java.security.Security;
 import java.util.ArrayList;
 
 
@@ -57,19 +54,16 @@ public class PDFViewerActivity extends AppCompatActivity {
     private static final int READ_REQUEST_CODE = 42;
     private static final int SIGNATURE_Request_CODE = 43;
     private static final int IMAGE_REQUEST_CODE = 45;
-    private static final int DIGITAL_ID_REQUEST_CODE = 44;
     Uri pdfData = null;
     private PDSViewPager mViewPager;
     PDSPageAdapter imageAdapter;
     private Context mContext = null;
-    private final boolean mFirstTap = true;
     private int mVisibleWindowHt = 0;
     private PDSPDFDocument mDocument = null;
     private Uri mDigitalID = null;
     public String mDigitalIDPassword = null;
     private Menu mMenu = null;
     private final UIElementsHandler mUIElemsHandler = new UIElementsHandler(this);
-    AlertDialog passwordAlertDialog;
     AlertDialog signatureOptionDialog;
     public KeyStore keyStore = null;
     public String aliases = null;
@@ -120,16 +114,6 @@ public class PDFViewerActivity extends AppCompatActivity {
             this.addElement(PDSElement.PDSElementType.PDSElementTypeSignature, fi, (float) SignatureUtils.getSignatureWidth((int) getResources().getDimension(R.dimen.sign_field_default_height), fi, getApplicationContext()), getResources().getDimension(R.dimen.sign_field_default_height));
 
         }
-//        if (requestCode == DIGITAL_ID_REQUEST_CODE) {
-//            if (resultCode == Activity.RESULT_OK) {
-//                if (result != null) {
-//                    mDigitalID = result.getData();
-//                    GetPassword();
-//                }
-//            } else {
-//                Toast.makeText(PDFViewerActivity.this, "Digital certificate is not added with Signature", Toast.LENGTH_LONG).show();
-//            }
-//        }
 
         if (requestCode == IMAGE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             if (result != null) {
@@ -280,47 +264,6 @@ public class PDFViewerActivity extends AppCompatActivity {
         return this.mDocument;
     }
 
-//    public void GetPassword() {
-//        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-//        LayoutInflater inflater = this.getLayoutInflater();
-//        View dialogView = inflater.inflate(R.layout.password_dialog, null);
-//        dialogBuilder.setView(dialogView);
-//
-//        final EditText password = dialogView.findViewById(R.id.passwordText);
-//        Button submit = dialogView.findViewById(R.id.passwordSubmit);
-//        submit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (password.length() == 0) {
-//                    Toast.makeText(PDFViewerActivity.this, "Password can't be blank", Toast.LENGTH_LONG).show();
-//                } else {
-//                    mDigitalIDPassword = password.getText().toString();
-//                    BouncyCastleProvider provider = new BouncyCastleProvider();
-//                    Security.addProvider(provider);
-//                    try {
-//                        InputStream inputStream = getContentResolver().openInputStream(mDigitalID);
-//                        keyStore = KeyStore.getInstance("pkcs12", provider.getName());
-//                        keyStore.load(inputStream, mDigitalIDPassword.toCharArray());
-//                        aliases = keyStore.aliases().nextElement();
-//                        passwordAlertDialog.dismiss();
-//                        Toast.makeText(PDFViewerActivity.this, "Digital certificate is added with Signature", Toast.LENGTH_LONG).show();
-//                    } catch (Exception e) {
-//                        if (e.getMessage().contains("wrong password")) {
-//                            Toast.makeText(PDFViewerActivity.this, "Password is incorrect or certificate is corrupted", Toast.LENGTH_LONG).show();
-//                        } else {
-//                            Toast.makeText(PDFViewerActivity.this, "Something went wrong while adding Digital certificate", Toast.LENGTH_LONG).show();
-//                            passwordAlertDialog.dismiss();
-//                        }
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
-//        });
-//
-//        passwordAlertDialog = dialogBuilder.create();
-//        passwordAlertDialog.show();
-//    }
-
     public void invokeMenuButton(boolean disableButtonFlag) {
         MenuItem saveItem = mMenu.findItem(R.id.action_save);
         saveItem.setEnabled(disableButtonFlag);
@@ -347,28 +290,6 @@ public class PDFViewerActivity extends AppCompatActivity {
                 fASPageViewer.getLastFocusedElementViewer();
 
                 fASPageViewer.createElement(fASElementType, file, width, height, f, f2);
-
-//                if (!isSigned) {
-//                    AlertDialog dialog;
-//                    AlertDialog.Builder builder = new AlertDialog.Builder(PDFViewerActivity.this);
-//                    builder.setMessage("Do you want to add digital certificate with this Signature?")
-//                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                                public void onClick(DialogInterface dialog, int id) {
-//                                    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-//                                    intent.setType("application/keychain_access");
-//                                    String[] mimetypes = {"application/x-pkcs12"};
-//                                    intent.putExtra(Intent.EXTRA_MIME_TYPES, mimetypes);
-//                                    startActivityForResult(intent, DIGITAL_ID_REQUEST_CODE);
-//                                }
-//                            })
-//                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
-//                                public void onClick(DialogInterface dialog, int id) {
-//                                    dialog.dismiss();
-//                                }
-//                            });
-//                    dialog = builder.create();
-//                    dialog.show();
-//                }
             }
             invokeMenuButton(true);
         }
@@ -386,27 +307,6 @@ public class PDFViewerActivity extends AppCompatActivity {
                 fASPageViewer.getLastFocusedElementViewer();
 
                 fASPageViewer.createElement(fASElementType, bitmap, width, height, f, f2);
-//                if (!isSigned) {
-//                    AlertDialog dialog;
-//                    AlertDialog.Builder builder = new AlertDialog.Builder(PDFViewerActivity.this);
-//                    builder.setMessage("Do you want to add digital certificate with this Signature?")
-//                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                                public void onClick(DialogInterface dialog, int id) {
-//                                    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-//                                    intent.setType("application/keychain_access");
-//                                    String[] mimetypes = {"application/x-pkcs12"};
-//                                    intent.putExtra(Intent.EXTRA_MIME_TYPES, mimetypes);
-//                                    startActivityForResult(intent, DIGITAL_ID_REQUEST_CODE);
-//                                }
-//                            })
-//                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
-//                                public void onClick(DialogInterface dialog, int id) {
-//                                    dialog.dismiss();
-//                                }
-//                            });
-//                    dialog = builder.create();
-//                    dialog.show();
-//                }
             }
             invokeMenuButton(true);
         }

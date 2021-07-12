@@ -37,13 +37,13 @@ import java.security.cert.Certificate;
 
 public class PDSSaveAsPDFAsyncTask extends AsyncTask<Void, Void, Boolean> {
 
-    private final String mfileName;
+    private final String mFileName;
     PDFViewerActivity mCtx;
 
 
     public PDSSaveAsPDFAsyncTask(PDFViewerActivity context, String str) {
         this.mCtx = context;
-        this.mfileName = str;
+        this.mFileName = str;
     }
 
     @Override
@@ -64,7 +64,7 @@ public class PDSSaveAsPDFAsyncTask extends AsyncTask<Void, Void, Boolean> {
         if (!myDir.exists()) {
             myDir.mkdirs();
         }
-        File file = new File(myDir, mfileName);
+        File file = new File(myDir, mFileName);
         if (file.exists())
             file.delete();
         try {
@@ -146,7 +146,7 @@ public class PDSSaveAsPDFAsyncTask extends AsyncTask<Void, Void, Boolean> {
         if (!result)
             Toast.makeText(mCtx, "Something went wrong while Signing PDF document, Please try again", Toast.LENGTH_LONG).show();
         else
-            Toast.makeText(mCtx, "PDF document saved successfully", Toast.LENGTH_LONG).show();
+            Toast.makeText(mCtx, "PDF saved successfully in Document folder", Toast.LENGTH_LONG).show();
 
     }
 }
